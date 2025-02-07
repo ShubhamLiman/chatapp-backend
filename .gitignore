@@ -1,0 +1,22 @@
+# Node.js and npm files
+node_modules/
+
+
+# Mongoose and MongoDB files
+.mongoose/
+
+# Logs and temp files
+logs/
+tmp/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDE files
+.vscode/
+.idea/
+
+# Other files
+.env
+config.json
