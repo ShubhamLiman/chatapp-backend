@@ -13,14 +13,16 @@ const app = express();
 app.use(express.json());
 
 app.use(cookieParser());
-app.use("/api/auth", Authrouter);
+
 app.use(
   cors({
-    origin: "http://localhost:3000",
-    credentials: true,
+    origin: "http://localhost:5173", // Allow requests from this origin
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"], // Allowed HTTP methods
+    allowedHeaders: ["Content-Type", "Authorization"], // Allowed headers
+    credentials: true, // Allow cookies to be sent from the frontend
   })
 );
-
+app.use("/api/auth", Authrouter);
 app.get("/", (req, res) => {
   res.send("Hello World!");
 });

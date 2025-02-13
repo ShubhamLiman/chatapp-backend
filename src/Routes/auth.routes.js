@@ -1,9 +1,16 @@
 import express from "express";
-import { signup, login, logout } from "../Controllers/authController.js";
+import {
+  signup,
+  login,
+  logout,
+  changeProfilePic,
+} from "../Controllers/authController.js";
+import { protectRoute } from "../Middlewares/jwtconfig.js";
 const Authrouter = express.Router();
 
 Authrouter.post("/signup", signup);
 Authrouter.post("/login", login);
 Authrouter.get("/logout", logout);
+Authrouter.post("/uploadprofilepicture", protectRoute, changeProfilePic);
 
 export default Authrouter;

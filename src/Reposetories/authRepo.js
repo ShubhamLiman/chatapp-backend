@@ -1,5 +1,8 @@
 import User from "../Models/userSchema.js";
 import bcrypt from "bcryptjs";
+import { uploadResult } from "../Utils/cloudinaryConfig.js";
+import cloudinary from "../Utils/cloudinaryConfig.js";
+
 export const registerUser = async (user) => {
   const { fullName, email, password } = user;
   try {
@@ -22,7 +25,7 @@ export const registerUser = async (user) => {
     return {
       success: true,
       user: senduserData,
-      message: "Registration successfully",
+      message: "Registration successfull",
     };
   } catch (error) {
     console.log("Error in registerUser repository: ", error.message);
@@ -66,5 +69,47 @@ export const loginUser = async (user) => {
     console.log("Error in loginUser repository: ", error.message);
 
     return { success: false, message: error.message };
+  }
+};
+
+export const updateProfilepic = async (dp, userId) => {
+  try {
+    const uploadResponse = await uploadResult(dp);
+    // console.log(uploadResponse);
+    let url = cloudinary.url(uploadResponse.public_id, {
+      transformation: [
+        {
+          quality: "auto",
+          fetch_format: "auto",
+        },
+        {
+          width: 500,
+          height: 500,
+        },
+      ],
+    });
+
+    const updatedUser = await User.findByIdAndUpdate(
+      userId,
+      { profilePic: url },
+      { new: true }
+    );
+    const senduserData = {
+      id: updatedUser._id,
+      email: updatedUser.email,
+      fullName: updatedUser.fullName,
+      profilePic: updatedUser.profilePic,
+      connections: updatedUser.connections,
+      rooms: updatedUser.rooms,
+      createdAt: updatedUser.createdAt,
+    };
+    return {
+      success: true,
+      message: "Profile picture uploaded",
+      user: senduserData,
+    };
+  } catch (err) {
+    console.log(err);
+    return { success: false, message: err.message };
   }
 };

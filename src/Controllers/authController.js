@@ -1,28 +1,38 @@
-import { registerUser, loginUser } from "../Reposetories/authRepo.js";
+import {
+  registerUser,
+  loginUser,
+  updateProfilepic,
+} from "../Reposetories/authRepo.js";
 import { generateToken } from "../Middlewares/jwtconfig.js";
+
 export const signup = async (req, res) => {
+  console.log("Signup controller");
+
   try {
     const { fullName, email, password } = req.body;
 
     if (!fullName || !email || !password) {
-      return res.status(400).json({ message: "All fields are required" });
+      return res
+        .status(400)
+        .json({ success: false, message: "All fields are required" });
     }
 
     if (password.length < 6) {
-      return res
-        .status(400)
-        .json({ message: "Password must be at least 6 characters" });
+      return res.status(400).json({
+        success: false,
+        message: "Password must be at least 6 characters",
+      });
     }
 
     const user = await registerUser({ fullName, email, password });
 
     if (!user.success) {
-      return res.status(400).json({ message: user.message });
+      return res.status(400).json(user);
     }
 
     res.status(201).json(user);
   } catch (error) {
-    console.log("Error in signup controller", error.message);
+    console.log("Error in signup controller", error);
     res.status(500).json({ message: error.message });
   }
 };
@@ -40,7 +50,7 @@ export const login = async (req, res) => {
       return res.status(400).json({ message: user.message });
     }
 
-    const token = generateToken(user.user._id, res);
+    generateToken(user.user.id, res);
 
     res.status(200).json(user);
   } catch (error) {
@@ -56,5 +66,26 @@ export const logout = (req, res) => {
   } catch (error) {
     console.log("Error in logout controller", error.message);
     res.status(500).json({ message: "Internal Server Error" });
+  }
+};
+
+export const changeProfilePic = async (req, res) => {
+  try {
+    const { profilePic } = req.body;
+    const userId = req.user._id;
+    if (!userId) {
+      return res.status(400).json({ message: "Login to continue" });
+    }
+    if (!profilePic) {
+      return res.status(400).json({ message: "Profile pic is required" });
+    }
+    const upload = await updateProfilepic(profilePic, userId);
+    if (!upload.success) {
+      res.status(400).json(upload);
+    }
+    res.status(200).json(upload);
+  } catch (error) {
+    console.log("error in update profile:", error);
+    res.status(500).json({ message: "Internal server error" });
   }
 };

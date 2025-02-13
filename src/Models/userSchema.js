@@ -18,7 +18,7 @@ const userSchema = new mongoose.Schema(
     },
     profilePic: {
       type: String,
-      default: "",
+      default: "https://cdn.jsdelivr.net/gh/alohe/avatars/png/vibrent_1.png",
     },
     connections: [
       {

@@ -9,7 +9,7 @@ export const generateToken = (userId, res) => {
     maxAge: 1 * 24 * 60 * 60 * 1000, // MS
     httpOnly: true, // prevent XSS attacks cross-site scripting attacks
     sameSite: "strict", // CSRF attacks cross-site request forgery attacks
-    secure: process.env.NODE_ENV !== "development",
+    secure: false,
   });
 
   return token;
@@ -25,7 +25,7 @@ export const protectRoute = async (req, res, next) => {
         .json({ message: "Unauthorized - No Token Provided" });
     }
 
-    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    const decoded = jwt.verify(token, process.env.JWT_SECRET_KEY);
 
     if (!decoded) {
       return res.status(401).json({ message: "Unauthorized - Invalid Token" });
