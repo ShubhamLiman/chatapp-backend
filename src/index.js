@@ -12,7 +12,7 @@ const app = express();
 
 app.use(
   cors({
-    origin: "*", // Allow requests from this origin
+    origin: "https://chatapp-backend-pi-fawn.vercel.app/", // Allow requests from this origin
     methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"], // Allowed HTTP methods
     allowedHeaders: ["Content-Type", "Authorization"], // Allowed headers
     credentials: true, // Allow cookies to be sent from the frontend
