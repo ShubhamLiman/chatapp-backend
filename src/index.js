@@ -9,17 +9,10 @@ dotenv.config({
   credentials: true,
 });
 const app = express();
-const allowedOrigins = ["http://localhost:5173"];
 
 app.use(
   cors({
-    origin: (origin, callback) => {
-      if (!origin || allowedOrigins.includes(origin)) {
-        callback(null, true);
-      } else {
-        callback(new Error("Not allowed by CORS"));
-      }
-    }, // Allow requests from this origin
+    origin: "*", // Allow requests from this origin
     methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"], // Allowed HTTP methods
     allowedHeaders: ["Content-Type", "Authorization"], // Allowed headers
     credentials: true, // Allow cookies to be sent from the frontend
