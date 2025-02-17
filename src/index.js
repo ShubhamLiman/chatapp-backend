@@ -4,7 +4,27 @@ import cookieParser from "cookie-parser";
 import cors from "cors";
 import { connectDB } from "./Utils/dbConfig.js";
 import Authrouter from "./Routes/auth.routes.js";
-dotenv.config();
+dotenv.config({
+  origin: "https://chatapp-backend-pi-fawn.vercel.app/", // Or "*" for all domains
+  credentials: true,
+});
+
+const allowedOrigins = ["http://localhost:5173"];
+
+app.use(
+  cors({
+    origin: (origin, callback) => {
+      if (!origin || allowedOrigins.includes(origin)) {
+        callback(null, true);
+      } else {
+        callback(new Error("Not allowed by CORS"));
+      }
+    }, // Allow requests from this origin
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"], // Allowed HTTP methods
+    allowedHeaders: ["Content-Type", "Authorization"], // Allowed headers
+    credentials: true, // Allow cookies to be sent from the frontend
+  })
+);
 
 const port = process.env.PORT;
 
@@ -14,14 +34,6 @@ app.use(express.json());
 
 app.use(cookieParser());
 
-app.use(
-  cors({
-    origin: "http://localhost:5173", // Allow requests from this origin
-    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"], // Allowed HTTP methods
-    allowedHeaders: ["Content-Type", "Authorization"], // Allowed headers
-    credentials: true, // Allow cookies to be sent from the frontend
-  })
-);
 app.use("/api/auth", Authrouter);
 app.get("/", (req, res) => {
   res.send("Hello World!");
