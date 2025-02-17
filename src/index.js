@@ -8,7 +8,7 @@ dotenv.config({
   origin: "https://chatapp-backend-pi-fawn.vercel.app/", // Or "*" for all domains
   credentials: true,
 });
-
+const app = express();
 const allowedOrigins = ["http://localhost:5173"];
 
 app.use(
@@ -27,8 +27,6 @@ app.use(
 );
 
 const port = process.env.PORT;
-
-const app = express();
 
 app.use(express.json());
 
