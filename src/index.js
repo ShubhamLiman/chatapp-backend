@@ -10,14 +10,16 @@ dotenv.config({
 });
 const app = express();
 
-app.use(
-  cors({
-    origin: "https://chatapp-frontend-rust.vercel.app/", // Allow requests from this origin
-    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"], // Allowed HTTP methods
-    allowedHeaders: ["Content-Type", "Authorization"], // Allowed headers
-    credentials: true, // Allow cookies to be sent from the frontend
-  })
-);
+// app.use(
+//   cors({
+//     origin: "https://chatapp-frontend-rust.vercel.app/", // Allow requests from this origin
+//     methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"], // Allowed HTTP methods
+//     allowedHeaders: ["Content-Type", "Authorization"], // Allowed headers
+//     credentials: true, // Allow cookies to be sent from the frontend
+//   })
+// );
+
+app.use(cors());
 
 const port = process.env.PORT;
 
