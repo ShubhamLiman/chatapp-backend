@@ -4,6 +4,7 @@ import {
   updateProfilepic,
 } from "../Reposetories/authRepo.js";
 import { generateToken } from "../Middlewares/jwtconfig.js";
+import { JsonWebTokenError } from "jsonwebtoken";
 
 export const signup = async (req, res) => {
   console.log("Signup controller");
@@ -50,9 +51,9 @@ export const login = async (req, res) => {
       return res.status(400).json({ message: user.message });
     }
 
-    generateToken(user.user.id, res);
+    const token = generateToken(user.user.id, res);
 
-    res.status(200).json(user);
+    res.status(200).json({ user, token });
   } catch (error) {
     console.log("Error in login controller", error.message);
     res.status(500).json({ message: error.message });

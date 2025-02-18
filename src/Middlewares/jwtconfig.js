@@ -5,14 +5,14 @@ export const generateToken = (userId, res) => {
     expiresIn: "1d",
   });
 
-  res.cookie("jwt", token, {
-    maxAge: 1 * 24 * 60 * 60 * 1000, // MS 1 hour
-    httpOnly: true, // prevent XSS attacks cross-site scripting attacks
-    sameSite: "None", // CSRF attacks cross-site request forgery attacks
-    secure: true,
-    domain: "chatapp-frontend-rust.vercel.app",
-    path: "/",
-  });
+  // res.cookie("jwt", token, {
+  //   maxAge: 1 * 24 * 60 * 60 * 1000, // MS 1 hour
+  //   httpOnly: true, // prevent XSS attacks cross-site scripting attacks
+  //   sameSite: "None", // CSRF attacks cross-site request forgery attacks
+  //   secure: true,
+  //   domain: "chatapp-frontend-rust.vercel.app",
+  //   path: "/",
+  // });
 
   return token;
 };
