@@ -18,7 +18,10 @@ const app = express();
 
 app.use(
   cors({
-    origin: "https://chatapp-frontend-rust.vercel.app", // Allow requests from all origins
+    origin: [
+      "https://chatapp-frontend-rust.vercel.app",
+      "http://localhost:5173/",
+    ], // Allow requests from all origins
     methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"], // Allowed HTTP methods
     allowedHeaders: ["Content-Type", "Authorization"], // Allowed headers
     credentials: true, // Allow cookies to be sent from the frontend
