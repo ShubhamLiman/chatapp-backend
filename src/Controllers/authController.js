@@ -52,6 +52,7 @@ export const login = async (req, res) => {
     }
 
     const token = generateToken(user.user.id, res);
+    console.log(token);
 
     res.status(200).json({ user, token });
   } catch (error) {
