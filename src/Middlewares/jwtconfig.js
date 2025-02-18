@@ -10,6 +10,8 @@ export const generateToken = (userId, res) => {
     httpOnly: true, // prevent XSS attacks cross-site scripting attacks
     sameSite: "None", // CSRF attacks cross-site request forgery attacks
     secure: true,
+    domain: "chatapp-frontend-rust.vercel.app",
+    path: "/",
   });
 
   return token;
