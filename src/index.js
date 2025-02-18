@@ -4,10 +4,7 @@ import cookieParser from "cookie-parser";
 import cors from "cors";
 import { connectDB } from "./Utils/dbConfig.js";
 import Authrouter from "./Routes/auth.routes.js";
-dotenv.config({
-  origin: "https://chatapp-backend-pi-fawn.vercel.app/", // Or "*" for all domains
-  credentials: true,
-});
+dotenv.config();
 const app = express();
 
 // app.use(
@@ -19,7 +16,14 @@ const app = express();
 //   })
 // );
 
-app.use(cors());
+app.use(
+  cors({
+    origin: "*", // Allow requests from all origins
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"], // Allowed HTTP methods
+    allowedHeaders: ["Content-Type", "Authorization"], // Allowed headers
+    credentials: true, // Allow cookies to be sent from the frontend
+  })
+);
 
 const port = process.env.PORT;
 
