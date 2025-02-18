@@ -4,7 +4,7 @@ import {
   updateProfilepic,
 } from "../Reposetories/authRepo.js";
 import { generateToken } from "../Middlewares/jwtconfig.js";
-import { JsonWebTokenError } from "jsonwebtoken";
+// import { JsonWebTokenError } from "jsonwebtoken";
 
 export const signup = async (req, res) => {
   console.log("Signup controller");
