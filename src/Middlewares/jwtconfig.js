@@ -5,15 +5,6 @@ export const generateToken = (userId) => {
     expiresIn: "1d",
   });
 
-  // res.cookie("jwt", token, {
-  //   maxAge: 1 * 24 * 60 * 60 * 1000, // MS 1 hour
-  //   httpOnly: true, // prevent XSS attacks cross-site scripting attacks
-  //   sameSite: "None", // CSRF attacks cross-site request forgery attacks
-  //   secure: true,
-  //   domain: "chatapp-frontend-rust.vercel.app",
-  //   path: "/",
-  // });
-
   return token;
 };
 
@@ -24,7 +15,7 @@ export const protectRoute = async (req, res, next) => {
     if (!token) {
       return res
         .status(401)
-        .json({ message: "Unauthorized - No Token Provided" });
+        .json({ message: "Unauthorized - No Token Provided", success: false });
     }
 
     const decoded = jwt.verify(token, process.env.JWT_SECRET_KEY);
