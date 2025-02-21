@@ -67,6 +67,8 @@ export const checkToken = async (req, res) => {
       .json({ success: true, message: "user is alredy logged in", user });
   } catch (err) {
     console.log("Error in protectRoute middleware: ", err.message);
-    res.status(500).json({ message: "Internal server error" });
+    res
+      .status(500)
+      .json({ message: "Internal server error", err: err.message });
   }
 };
