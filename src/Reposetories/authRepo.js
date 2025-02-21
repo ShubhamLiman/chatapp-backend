@@ -52,7 +52,7 @@ export const loginUser = async (user) => {
       };
     }
     const senduserData = {
-      id: user._id,
+      _id: user._id,
       email: user.email,
       fullName: user.fullName,
       profilePic: user.profilePic,
