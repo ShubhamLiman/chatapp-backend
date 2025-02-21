@@ -48,6 +48,8 @@ export const checkToken = async (req, res) => {
         .json({ message: "Unauthorized - No Token Provided", success: false });
     }
     const decoded = jwt.verify(token, process.env.JWT_SECRET_KEY);
+    console.log(decoded);
+
     if (!decoded) {
       return res
         .status(401)
@@ -55,6 +57,7 @@ export const checkToken = async (req, res) => {
     }
 
     const user = await User.findById(decoded.userId).select("-password");
+    console.log(user);
 
     if (!user) {
       return res
