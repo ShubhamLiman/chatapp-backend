@@ -37,6 +37,12 @@ export const registerUser = async (user) => {
 export const loginUser = async (user) => {
   const { email, password } = user;
   try {
+    if (!email || !password) {
+      return {
+        success: false,
+        message: "All fields are required",
+      };
+    }
     const user = await User.findOne({ email });
     if (!user) {
       return {

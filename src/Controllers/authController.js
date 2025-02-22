@@ -41,16 +41,10 @@ export const signup = async (req, res) => {
 export const login = async (req, res) => {
   const { email, password } = req.body;
   try {
-    if (!email || !password) {
-      return res
-        .status(400)
-        .json({ success: false, message: "All fields are required" });
-    }
-
     const user = await loginUser({ email, password });
 
     if (!user.success) {
-      return res.status(400).json({ success: false, message: user.message });
+      return res.status(400).json({ user });
     }
 
     const token = generateToken(user.user._id);
