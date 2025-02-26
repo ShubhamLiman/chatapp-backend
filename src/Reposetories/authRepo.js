@@ -65,6 +65,7 @@ export const loginUser = async (user) => {
       connections: user.connections,
       rooms: user.rooms,
       createdAt: user.createdAt,
+      updatedAt: user.updatedAt,
     };
     return {
       success: true,
