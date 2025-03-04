@@ -92,6 +92,8 @@ export const changeProfilePic = async (req, res) => {
 };
 
 export const checkAuth = (req, res) => {
+  console.log("Check auth controller");
+
   try {
     res.status(200).json({
       user: {
