@@ -93,15 +93,13 @@ export const changeProfilePic = async (req, res) => {
 
 export const checkAuth = (req, res) => {
   try {
-    res
-      .status(200)
-      .json({
-        user: {
-          success: true,
-          user: req.user,
-          message: "Authantication success",
-        },
-      });
+    res.status(200).json({
+      user: {
+        success: true,
+        user: req.user,
+        message: "Authantication success",
+      },
+    });
   } catch (error) {
     console.log("Error in checkAuth controller", error.message);
     res.status(500).json({ message: "Internal Server Error" });
