@@ -67,6 +67,7 @@ export const logout = (req, res) => {
 };
 
 export const changeProfilePic = async (req, res) => {
+  console.log("Change profile pic controller");
   try {
     const { profilePic } = req.body;
     const userId = req.user._id;
