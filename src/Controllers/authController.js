@@ -39,6 +39,7 @@ export const signup = async (req, res) => {
 };
 
 export const login = async (req, res) => {
+  console.log("Change profile pic controller");
   const { email, password } = req.body;
   try {
     const user = await loginUser({ email, password });
@@ -67,7 +68,6 @@ export const logout = (req, res) => {
 };
 
 export const changeProfilePic = async (req, res) => {
-  console.log("Change profile pic controller");
   try {
     const { profilePic } = req.body;
     const userId = req.user._id;
