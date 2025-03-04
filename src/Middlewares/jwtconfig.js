@@ -8,6 +8,8 @@ export const generateToken = (userId, res) => {
 };
 
 export const protectRoute = async (req, res, next) => {
+  console.log(req.cookies);
+
   try {
     const token = req.cookies.jwt;
 
