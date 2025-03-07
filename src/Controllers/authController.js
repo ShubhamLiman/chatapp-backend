@@ -69,7 +69,12 @@ export const logout = (req, res) => {
   //   res.status(500).json({ success: false, message: "Internal Server Error" });
   // }
   try {
-    res.cookie("jwt", "", { maxAge: 0 });
+    res.cookie("jwt", "", {
+      maxAge: 0,
+      httpOnly: true,
+      path: "/",
+      domain: "chatapp-backend-production-196a.up.railway.app",
+    });
     res.status(200).json({ success: true, message: "Logged out successfully" });
   } catch (error) {
     console.log("Error in logout controller", error.message);
