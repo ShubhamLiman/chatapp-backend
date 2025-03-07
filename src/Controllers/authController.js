@@ -74,6 +74,7 @@ export const logout = (req, res) => {
       httpOnly: true,
       path: "/",
       domain: "chatapp-backend-production-196a.up.railway.app",
+      secure: process.env.NODE_ENV !== "development",
       sameSite: "none",
     });
     res.status(200).json({ success: true, message: "Logged out successfully" });
