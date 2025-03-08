@@ -55,19 +55,6 @@ export const login = async (req, res) => {
 };
 
 export const logout = (req, res) => {
-  // try {
-  //   res.cookie("jwt", "", {
-  //     expires: new Date(0),
-  //     path: "/",
-  //     httpOnly: true, // Ensure the cookie is HttpOnly
-  //     secure: process.env.NODE_ENV !== "devlopment", // Use Secure flag in production
-  //     sameSite: "strict", // Use SameSite attribute for CSRF protection
-  //   });
-  //   res.status(200).json({ success: true, message: "Logged out successfully" });
-  // } catch (error) {
-  //   console.log("Error in logout controller", error.message);
-  //   res.status(500).json({ success: false, message: "Internal Server Error" });
-  // }
   try {
     res.cookie("jwt", "", {
       maxAge: 0,
@@ -76,6 +63,11 @@ export const logout = (req, res) => {
       domain: "chatapp-backend-production-196a.up.railway.app",
       secure: process.env.NODE_ENV !== "development",
       sameSite: "none",
+      // maxAge: 0,
+      // httpOnly: false,
+      // secure: process.env.NODE_ENV !== "development",
+      // path: "/",
+      // sameSite: "lax",
     });
     res.status(200).json({ success: true, message: "Logged out successfully" });
   } catch (error) {
