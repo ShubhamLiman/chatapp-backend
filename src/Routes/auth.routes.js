@@ -12,6 +12,6 @@ const Authrouter = express.Router();
 Authrouter.post("/signup", signup);
 Authrouter.post("/login", login);
 Authrouter.get("/logout", logout);
-Authrouter.post("/uploadprofilepicture", protectRoute, changeProfilePic);
+Authrouter.put("/uploadprofilepicture", protectRoute, changeProfilePic);
 Authrouter.get("/check", protectRoute, checkAuth);
 export default Authrouter;

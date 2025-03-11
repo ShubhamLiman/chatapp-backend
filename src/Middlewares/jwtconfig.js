@@ -4,23 +4,17 @@ export const generateToken = (userId, res) => {
   const token = jwt.sign({ userId }, process.env.JWT_SECRET_KEY, {
     expiresIn: "1d",
   });
-  // res.cookie("jwt", token, {
-  //   expires: new Date(Date.now() + 1 * 24 * 60 * 60 * 1000), // MS
-  //   httpOnly: true, // prevent XSS attacks cross-site scripting attacks
-  //   sameSite: "none", // CSRF attacks cross-site request forgery attacks
-  //   secure: process.env.NODE_ENV !== "development",
-  // });
   try {
     res.cookie("jwt", token, {
-      maxAge: 1 * 24 * 60 * 60 * 1000, // MS
-      httpOnly: true, // prevent XSS attacks cross-site scripting attacks
-      sameSite: "none", // CSRF attacks cross-site request forgery attacks
-      secure: process.env.NODE_ENV !== "development",
-      domain: "chatapp-backend-production-196a.up.railway.app",
-      // maxAge: 1 * 24 * 60 * 60 * 1000,
-      // httpOnly: false,
-      // sameSite: "lax",
+      // maxAge: 1 * 24 * 60 * 60 * 1000, // MS
+      // httpOnly: true, // prevent XSS attacks cross-site scripting attacks
+      // sameSite: "none", // CSRF attacks cross-site request forgery attacks
       // secure: process.env.NODE_ENV !== "development",
+      // domain: "chatapp-backend-production-196a.up.railway.app",
+      maxAge: 1 * 24 * 60 * 60 * 1000,
+      httpOnly: false,
+      sameSite: "lax",
+      secure: process.env.NODE_ENV !== "development",
     });
   } catch (err) {
     console.log("Error in setting cookie: ", err.message);

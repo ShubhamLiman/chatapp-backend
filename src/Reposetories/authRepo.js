@@ -102,13 +102,14 @@ export const updateProfilepic = async (dp, userId) => {
       { new: true }
     );
     const senduserData = {
-      id: updatedUser._id,
+      _id: updatedUser._id,
       email: updatedUser.email,
       fullName: updatedUser.fullName,
       profilePic: updatedUser.profilePic,
       connections: updatedUser.connections,
       rooms: updatedUser.rooms,
       createdAt: updatedUser.createdAt,
+      updatedAt: updatedUser.updatedAt,
     };
     return {
       success: true,
