@@ -32,6 +32,32 @@ const userSchema = new mongoose.Schema(
         ref: "Room",
       },
     ],
+
+    requests: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Request",
+      },
+    ],
+    teams: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Team",
+      },
+    ],
+    projects: [
+      {
+        project: {
+          type: mongoose.Schema.Types.ObjectId,
+          ref: "Project",
+        },
+        role: {
+          type: String,
+          enum: ["productowner", "devloper", "master", "manager"],
+          default: "devloper",
+        },
+      },
+    ],
   },
   { timestamps: true }
 );
