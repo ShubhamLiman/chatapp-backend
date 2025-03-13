@@ -57,17 +57,17 @@ export const login = async (req, res) => {
 export const logout = (req, res) => {
   try {
     res.cookie("jwt", "", {
-      // maxAge: 0,
-      // httpOnly: true,
-      // path: "/",
-      // domain: "chatapp-backend-production-196a.up.railway.app",
-      // secure: process.env.NODE_ENV !== "development",
-      // sameSite: "none",
       maxAge: 0,
-      httpOnly: false,
-      secure: process.env.NODE_ENV !== "development",
+      httpOnly: true,
       path: "/",
-      sameSite: "lax",
+      domain: "chatapp-backend-production-196a.up.railway.app",
+      secure: process.env.NODE_ENV !== "development",
+      sameSite: "none",
+      // maxAge: 0,
+      // httpOnly: false,
+      // secure: process.env.NODE_ENV !== "development",
+      // path: "/",
+      // sameSite: "lax",
     });
     res.status(200).json({ success: true, message: "Logged out successfully" });
   } catch (error) {

@@ -18,7 +18,10 @@ const app = express();
 
 app.use(
   cors({
-    origin: ["http://localhost:5173"], // Allow requests from all origins
+    origin: [
+      "http://localhost:5173",
+      "https://chatapp-frontend-uewp.vercel.app",
+    ], // Allow requests from all origins
     credentials: true, // Allow cookies to be sent from the frontend
   })
 );
