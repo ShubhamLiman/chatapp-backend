@@ -64,6 +64,7 @@ export const loginUser = async (user) => {
       profilePic: user.profilePic,
       connections: user.connections,
       rooms: user.rooms,
+      requests: user.requests,
       createdAt: user.createdAt,
       updatedAt: user.updatedAt,
     };
@@ -117,6 +118,21 @@ export const updateProfilepic = async (dp, userId) => {
       user: senduserData,
     };
   } catch (err) {
+    console.log(err);
+    return { success: false, message: err.message };
+  }
+};
+
+export const sendConnections = async (user) => {
+  const connections = user.connections;
+  try {
+    const users = await User.find({ _id: { $in: connections } }).select(
+      "-password"
+    );
+
+    // Return the array of user details
+    return { success: true, users };
+  } catch (e) {
     console.log(err);
     return { success: false, message: err.message };
   }

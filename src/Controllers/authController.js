@@ -2,6 +2,7 @@ import {
   registerUser,
   loginUser,
   updateProfilepic,
+  sendConnections,
 } from "../Reposetories/authRepo.js";
 import { generateToken } from "../Middlewares/jwtconfig.js";
 // import { JsonWebTokenError } from "jsonwebtoken";
@@ -113,5 +114,18 @@ export const checkAuth = (req, res) => {
   } catch (error) {
     console.log("Error in checkAuth controller", error.message);
     res.status(500).json({ message: "Internal Server Error" });
+  }
+};
+
+export const getConnections = async (req, res) => {
+  try {
+    const user = req.user;
+    const connections = await sendConnections(user);
+    if (connections.success) {
+      res.status(200).json({ success: true, connections });
+    }
+  } catch (error) {
+    console.log("Error in getting connections", error);
+    res.status(500).json({ success: false, message: error.message });
   }
 };

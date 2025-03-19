@@ -4,6 +4,7 @@ import cookieParser from "cookie-parser";
 import cors from "cors";
 import { connectDB } from "./Utils/dbConfig.js";
 import Authrouter from "./Routes/auth.routes.js";
+import requestRouter from "./Routes/connection.Routes.js";
 dotenv.config();
 const app = express();
 
@@ -33,6 +34,7 @@ app.use(express.urlencoded({ limit: "10mb", extended: true }));
 app.use(cookieParser());
 
 app.use("/api/auth", Authrouter);
+app.use("/api/request", requestRouter);
 app.get("/", (req, res) => {
   res.send("Hello World!");
 });
