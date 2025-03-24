@@ -5,6 +5,7 @@ import cors from "cors";
 import { connectDB } from "./Utils/dbConfig.js";
 import Authrouter from "./Routes/auth.routes.js";
 import requestRouter from "./Routes/connection.Routes.js";
+import messageRouter from "./Routes/message.Routes.js";
 dotenv.config();
 const app = express();
 
@@ -35,6 +36,7 @@ app.use(cookieParser());
 
 app.use("/api/auth", Authrouter);
 app.use("/api/request", requestRouter);
+app.use("/api/message", messageRouter);
 app.get("/", (req, res) => {
   res.send("Hello World!");
 });
