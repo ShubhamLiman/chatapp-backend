@@ -43,7 +43,7 @@ export const sendMessageToContact = async (contact, user, image, text) => {
     });
 
     await newMessage.save();
-    return { success: true, message: "Messagesent successfully" };
+    return { success: true, message: "Messagesent successfully", newMessage };
   } catch (err) {
     console.log(err);
     return { success: false, message: err.message };
