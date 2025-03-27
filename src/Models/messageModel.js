@@ -22,6 +22,18 @@ const messageSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
+messageSchema.virtual("createdAtIST").get(function () {
+  return new Date(this.createdAt).toLocaleString("en-US", {
+    timeZone: "Asia/Kolkata",
+  });
+});
+
+messageSchema.virtual("updatedAtIST").get(function () {
+  return new Date(this.updatedAt).toLocaleString("en-US", {
+    timeZone: "Asia/Kolkata",
+  });
+});
+
 const Message = mongoose.model("Message", messageSchema);
 
 export default Message;
