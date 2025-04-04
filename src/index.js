@@ -6,9 +6,10 @@ import { connectDB } from "./Utils/dbConfig.js";
 import Authrouter from "./Routes/auth.routes.js";
 import requestRouter from "./Routes/connection.Routes.js";
 import messageRouter from "./Routes/message.Routes.js";
-dotenv.config();
-const app = express();
+import { app, server } from "./Socket.js";
 
+dotenv.config();
+const port = process.env.PORT;
 // app.use(
 //   cors({
 //     origin: "https://chatapp-frontend-rust.vercel.app/", // Allow requests from this origin
@@ -28,8 +29,6 @@ app.use(
   })
 );
 
-const port = process.env.PORT;
-
 app.use(express.json({ limit: "20mb" }));
 app.use(express.urlencoded({ limit: "20mb", extended: true }));
 app.use(cookieParser());
@@ -43,7 +42,7 @@ app.get("/", (req, res) => {
 
 (async () => {
   await connectDB();
-  app.listen(port, () => {
+  server.listen(port, () => {
     console.log("Listening on port 3000");
   });
 })();

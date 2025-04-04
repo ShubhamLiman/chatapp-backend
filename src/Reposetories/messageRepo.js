@@ -1,6 +1,8 @@
 import Message from "../Models/messageModel.js";
 import { uploadResult } from "../Utils/cloudinaryConfig.js";
 import cloudinary from "../Utils/cloudinaryConfig.js";
+
+import { io, getReceiverSocketId } from "../Socket.js";
 export const getUserMessages = async (contact, user) => {
   try {
     const messages = await Message.find({
@@ -43,6 +45,11 @@ export const sendMessageToContact = async (contact, user, image, text) => {
     });
 
     await newMessage.save();
+
+    const receiverSocketId = getReceiverSocketId(contact);
+    if (receiverSocketId) {
+      io.to(receiverSocketId).emit("newMessage", newMessage);
+    }
     return { success: true, message: "Messagesent successfully", newMessage };
   } catch (err) {
     console.log(err);
